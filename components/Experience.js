@@ -1,19 +1,37 @@
 import './Experience.css'
+import { createButton } from './Button.js'
 
 export function createExperienceSection() {
   const section = document.createElement('section')
   section.id = 'experience'
 
-  const p = document.createElement('p')
-  p.className = 'section__text__p1'
-  p.textContent = 'Explore My'
+  // Contenedor de botones de alternancia
+  const toggleContainer = document.createElement('div')
+  toggleContainer.className = 'toggle-container'
 
-  const h1 = document.createElement('h1')
-  h1.className = 'title'
-  h1.textContent = 'Experience'
+  // Crear botones utilizando el componente Button
+  const experienceBtn = createButton('Experiencia', 'toggle-btn active', () => {
+    experienceContainer.style.display = 'block'
+    studiesContainer.style.display = 'none'
+    experienceBtn.classList.add('active')
+    studiesBtn.classList.remove('active')
+  })
 
-  const experienceDetails = document.createElement('div')
-  experienceDetails.className = 'experience-details-container'
+  const studiesBtn = createButton('Estudios', 'toggle-btn', () => {
+    experienceContainer.style.display = 'none'
+    studiesContainer.style.display = 'block'
+    studiesBtn.classList.add('active')
+    experienceBtn.classList.remove('active')
+  })
+
+  toggleContainer.appendChild(experienceBtn)
+  toggleContainer.appendChild(studiesBtn)
+  section.appendChild(toggleContainer)
+
+  // Contenedor de Experiencia
+  const experienceContainer = document.createElement('div')
+  experienceContainer.className = 'content-container'
+  experienceContainer.id = 'experience-content'
 
   const experienceList = [
     {
@@ -22,16 +40,13 @@ export function createExperienceSection() {
         { name: 'HTML', level: 'Experienced' },
         { name: 'CSS', level: 'Experienced' },
         { name: 'JavaScript', level: 'Intermediate' },
-        { name: 'React', level: 'Basic' },
-        { name: 'Figma', level: 'Basic' }
+        { name: 'React', level: 'Basic' }
       ]
     },
     {
       title: 'Backend Development',
       skills: [
-        { name: 'PostgreSQL', level: 'Basic' },
         { name: 'Node JS', level: 'Intermediate' },
-        { name: 'GitHub', level: 'Intermediate' },
         { name: 'Git', level: 'Intermediate' }
       ]
     }
@@ -51,7 +66,6 @@ export function createExperienceSection() {
     exp.skills.forEach((skill) => {
       const article = document.createElement('article')
 
-      // Buscar la imagen correspondiente a la habilidad
       const icon = document.createElement('img')
       icon.src = `./assets/${skill.name}.png`
       icon.alt = `${skill.name} icon`
@@ -75,12 +89,46 @@ export function createExperienceSection() {
 
     detailsContainer.appendChild(h2)
     detailsContainer.appendChild(articleContainer)
-    experienceDetails.appendChild(detailsContainer)
+    experienceContainer.appendChild(detailsContainer)
   })
 
-  section.appendChild(p)
-  section.appendChild(h1)
-  section.appendChild(experienceDetails)
+  // Contenedor de Estudios
+  const studiesContainer = document.createElement('div')
+  studiesContainer.className = 'content-container'
+  studiesContainer.id = 'studies-content'
+  studiesContainer.style.display = 'none' // Oculto por defecto
+
+  const studiesList = [
+    {
+      degree: 'B.Sc. Computer Science',
+      institution: 'XYZ University',
+      year: '2018 - 2022'
+    },
+    {
+      degree: 'M.Sc. Software Engineering',
+      institution: 'ABC Institute',
+      year: '2023 - Present'
+    }
+  ]
+
+  studiesList.forEach((study) => {
+    const detailsContainer = document.createElement('div')
+    detailsContainer.className = 'details-container'
+
+    const h2 = document.createElement('h2')
+    h2.className = 'study-sub-title'
+    h2.textContent = study.degree
+
+    const p = document.createElement('p')
+    p.textContent = `${study.institution} | ${study.year}`
+
+    detailsContainer.appendChild(h2)
+    detailsContainer.appendChild(p)
+    studiesContainer.appendChild(detailsContainer)
+  })
+
+  section.appendChild(experienceContainer)
+  section.appendChild(studiesContainer)
 
   return section
 }

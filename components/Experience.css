@@ -35,6 +35,37 @@ article .icon {
   cursor: default;
 }
 
+/* Botones de alternancia */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.toggle-btn {
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn.active {
+  background-color: #ccc;
+}
+
+/* Contenedores de contenido */
+.content-container {
+  display: none;
+}
+
+.content-container.active {
+  display: block;
+}
+
 @media screen and (max-width: 1200px) {
   #experience,
   .experience-details-container {
