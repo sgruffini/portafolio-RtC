@@ -1,4 +1,5 @@
 import './Projects.css'
+import { createButton } from './Button.js'
 
 export function createProjectsSection() {
   const section = document.createElement('section')
@@ -57,15 +58,14 @@ export function createProjectsSection() {
     const btnContainer = document.createElement('div')
     btnContainer.className = 'btn-container'
 
-    const btnGithub = document.createElement('button')
-    btnGithub.className = 'btn btn-color-2 project-btn'
-    btnGithub.textContent = 'Github'
-    btnGithub.onclick = () => (location.href = project.github)
+    // Crear botones reutilizables
+    const btnGithub = createButton('Github', 'btn-color-2', () => {
+      location.href = project.github
+    })
 
-    const btnDemo = document.createElement('button')
-    btnDemo.className = 'btn btn-color-2 project-btn'
-    btnDemo.textContent = 'Live Demo'
-    btnDemo.onclick = () => (location.href = project.demo)
+    const btnDemo = createButton('Live Demo', 'btn-color-2', () => {
+      location.href = project.demo
+    })
 
     btnContainer.appendChild(btnGithub)
     btnContainer.appendChild(btnDemo)
